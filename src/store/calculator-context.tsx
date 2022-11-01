@@ -1,19 +1,5 @@
 import React, { useState } from "react";
-
-type IsNumberOrNull = Number | null;
-
-type Props = {
-  children?: React.ReactNode | React.ReactNode[];
-};
-
-type CalculatorContextObj = {
-  previousValue?: Number | null;
-  currentValue?: Number | null;
-  pendingValue?: Number | null;
-  handlePreviousValue: (value: IsNumberOrNull) => void;
-  handleCurrentValue: (value: IsNumberOrNull) => void;
-  handlePendingValue: (value: IsNumberOrNull) => void;
-};
+import { IsNumberOrNull, Props, CalculatorContextObj } from "../types/types";
 
 export const CalculatorContext =
   React.createContext<CalculatorContextObj | null>({
