@@ -1,10 +1,12 @@
+import React from "react";
+
 export type IsNumberOrNull = Number | null;
 
 export type Props = {
     children?: React.ReactNode | React.ReactNode[];
     value?: string;
-    values?: string[]
-
+    values?: string[];
+    className?: string
 };
 
 export type CalculatorContextObj = {
