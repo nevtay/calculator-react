@@ -1,10 +1,10 @@
-import React from "react";
+import "./Display.css";
 import { Props } from "../types/types";
 import Row from "./Row";
 
 const Display = (props: Props) => {
   return (
-    <div>
+    <div id="calculator">
       <Row values={["AC", "±", "%", "÷"]} />
       <Row values={["7", "8", "9", "X"]} />
       <Row values={["4", "5", "6", "-"]} />
