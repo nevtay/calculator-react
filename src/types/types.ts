@@ -2,6 +2,9 @@ export type IsNumberOrNull = Number | null;
 
 export type Props = {
     children?: React.ReactNode | React.ReactNode[];
+    value?: string;
+    values?: string[]
+
 };
 
 export type CalculatorContextObj = {
