@@ -1,13 +1,13 @@
-import React from "react";
+import "./Row.css";
 import { Props } from "../types/types";
 import Button from "./Button";
 
 const Row = (props: Props) => {
   return (
-    <div>
-      {props.values?.map((val) => {
-        return <Button value={val} />;
-      })}
+    <div className="row">
+      {props.values?.map((val) => (
+        <Button value={val} />
+      ))}
     </div>
   );
 };
