@@ -1,0 +1,8 @@
+#calculator {
+  border: 1px solid red;
+  display: flex;
+  width: 50vw;
+  height: 75vh;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
