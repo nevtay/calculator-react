@@ -1,8 +1,5 @@
 #calculator {
-  border: 1px solid red;
   display: flex;
-  width: 50vw;
-  height: 75vh;
+  min-width: 400px;
   flex-flow: column wrap;
-  justify-content: space-between;
 }
