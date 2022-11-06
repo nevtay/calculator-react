@@ -1,8 +1,11 @@
-.button {
-  flex: 1;
-  border: 2px solid blue;
+#btn-0 {
+  flex: 0 1 50%;
 }
 
-.button-0 {
-  flex-grow: 2;
+.btn {
+  flex: 1 0 0;
+  text-align: center;
+  padding: 25px 0;
+  background: darkgray;
+  border: 1px solid black;
 }
