@@ -16,9 +16,10 @@ export const CalculatorContext =
   });
 
 export const CalculatorContextProvider: React.FC<Props> = (props) => {
-  const [previousValue, setPreviousValue] = useState<IsNumberOrStringOrNull>(0);
-  const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>(0);
-  const [pendingValue, setPendingValue] = useState<IsNumberOrStringOrNull>(0);
+  const [previousValue, setPreviousValue] =
+    useState<IsNumberOrStringOrNull>("0");
+  const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>("0");
+  const [pendingValue, setPendingValue] = useState<IsNumberOrStringOrNull>("0");
 
   const handlePreviousValue = (value: IsNumberOrStringOrNull): void => {
     return setPreviousValue(value);
