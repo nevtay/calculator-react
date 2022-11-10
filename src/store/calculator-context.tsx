@@ -16,6 +16,7 @@ export const CalculatorContext =
   });
 
 export const CalculatorContextProvider: React.FC<Props> = (props) => {
+  const MAX_NUMBER_OF_INPUTS = 20;
   const [previousValue, setPreviousValue] =
     useState<IsNumberOrStringOrNull>("0");
   const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>("0");
@@ -26,11 +27,22 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
   };
 
   const handleCurrentValue = (nextInput: IsNumberOrStringOrNull): void => {
+    // reset all values
     if (nextInput === "AC") {
       setCurrentValue("0");
       setPendingValue("");
       return;
     }
+    // prevent decimal point from being the last value
+    if (
+      currentValue &&
+      (String(currentValue).length >= MAX_NUMBER_OF_INPUTS ||
+        (String(currentValue).length >= MAX_NUMBER_OF_INPUTS - 1 &&
+          nextInput === "."))
+    ) {
+      return;
+    }
+    // if initial value is 0 and the next value is not 0, replace initial 0 with an empty string
     if (
       currentValue === "0" &&
       typeof nextInput === "string" &&
