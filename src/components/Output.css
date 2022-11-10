@@ -1,0 +1,14 @@
+.output {
+  background: #444;
+  height: 40px;
+  display: flex;
+  flex-flow: row-wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.currentValue {
+  color: #fff;
+  margin-right: 10px;
+  font-size: 20px;
+}
