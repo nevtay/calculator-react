@@ -1,30 +1,34 @@
 import React, { useState } from "react";
-import { IsNumberOrNull, Props, CalculatorContextObj } from "../types/types";
+import {
+  IsNumberOrStringOrNull,
+  Props,
+  CalculatorContextObj,
+} from "../types/types";
 
 export const CalculatorContext =
   React.createContext<CalculatorContextObj | null>({
     previousValue: 0,
     currentValue: 0,
     pendingValue: 0,
-    handlePreviousValue: (value: IsNumberOrNull) => {},
-    handleCurrentValue: (value: IsNumberOrNull) => {},
-    handlePendingValue: (value: IsNumberOrNull) => {},
+    handlePreviousValue: (value: IsNumberOrStringOrNull) => {},
+    handleCurrentValue: (value: IsNumberOrStringOrNull) => {},
+    handlePendingValue: (value: IsNumberOrStringOrNull) => {},
   });
 
 export const CalculatorContextProvider: React.FC<Props> = (props) => {
-  const [previousValue, setPreviousValue] = useState<IsNumberOrNull>(0);
-  const [currentValue, setCurrentValue] = useState<IsNumberOrNull>(0);
-  const [pendingValue, setPendingValue] = useState<IsNumberOrNull>(0);
+  const [previousValue, setPreviousValue] = useState<IsNumberOrStringOrNull>(0);
+  const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>(0);
+  const [pendingValue, setPendingValue] = useState<IsNumberOrStringOrNull>(0);
 
-  const handlePreviousValue = (value: IsNumberOrNull): void => {
+  const handlePreviousValue = (value: IsNumberOrStringOrNull): void => {
     return setPreviousValue(value);
   };
 
-  const handleCurrentValue = (value: IsNumberOrNull): void => {
+  const handleCurrentValue = (value: IsNumberOrStringOrNull): void => {
     return setCurrentValue(value);
   };
 
-  const handlePendingValue = (value: IsNumberOrNull): void => {
+  const handlePendingValue = (value: IsNumberOrStringOrNull): void => {
     return setPendingValue(value);
   };
 
