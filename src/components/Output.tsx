@@ -6,9 +6,11 @@ import "./Output.css";
 const Output = (props: Props) => {
   const ctx = useContext(CalculatorContext);
   const currentVal = ctx?.currentValue;
+  const pendingVal = ctx?.pendingValue;
   return (
     <div className="output">
-      <p className="currentValue">{currentVal?.toString() || "0"}</p>
+      <span className="pendingValue">{pendingVal?.toString() || "NA"}</span>
+      <span className="currentValue">{currentVal?.toString() || "0"}</span>
     </div>
   );
 };
