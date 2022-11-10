@@ -1,5 +1,5 @@
 #btn-0 {
-  flex: 0 1 50%;
+  flex: 0 0 50%;
 }
 
 .btn {
@@ -7,5 +7,5 @@
   text-align: center;
   padding: 25px 0;
   background: darkgray;
-  border: 1px solid black;
+  box-shadow: inset 1px 1px 0 0 #000, 0px 1px 0 0 #000;
 }
