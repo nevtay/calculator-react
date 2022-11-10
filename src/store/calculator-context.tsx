@@ -25,8 +25,18 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     return setPreviousValue(value);
   };
 
-  const handleCurrentValue = (value: IsNumberOrStringOrNull): void => {
-    return setCurrentValue(value);
+  const handleCurrentValue = (nextInput: IsNumberOrStringOrNull): void => {
+    if (
+      currentValue === "0" &&
+      typeof nextInput === "string" &&
+      nextInput !== "."
+    ) {
+      const nextValue = currentValue.concat(nextInput).replace("0", "");
+      setCurrentValue(nextValue);
+    } else {
+      const nextValue = String(currentValue) + String(nextInput);
+      setCurrentValue(nextValue);
+    }
   };
 
   const handlePendingValue = (value: IsNumberOrStringOrNull): void => {
