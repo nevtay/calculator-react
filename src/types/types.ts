@@ -1,6 +1,6 @@
 import React from "react";
 
-export type IsNumberOrStringOrNull = Number | String | null;
+export type IsNumberOrStringOrNull = number | string | null;
 
 export type Props = {
     children?: React.ReactNode | React.ReactNode[];
