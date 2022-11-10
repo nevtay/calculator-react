@@ -6,17 +6,37 @@ import { Props } from "../types/types";
 const Button = (props: Props) => {
   const ctx = useContext(CalculatorContext);
   const handleCurrentValue = ctx?.handleCurrentValue;
+  const currentValue = ctx?.currentValue;
 
   if (props.value === ".") {
     return (
-      <span id={`btn-point`} className={`btn`}>
+      <span
+        id={`btn-point`}
+        onClick={() => {
+          if (typeof currentValue === "string" && currentValue.includes(".")) {
+            return;
+          }
+          if (handleCurrentValue) {
+            handleCurrentValue(String(props.value));
+          }
+        }}
+        className={`btn`}
+      >
         {props.value}
       </span>
     );
   }
   if (props.value === "=") {
     return (
-      <span id={`btn-equal`} className={`btn`}>
+      <span
+        id={`btn-equal`}
+        onClick={() => {
+          if (handleCurrentValue) {
+            handleCurrentValue(String(props.value));
+          }
+        }}
+        className={`btn`}
+      >
         {props.value}
       </span>
     );
