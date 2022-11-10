@@ -1,5 +1,5 @@
 #calculator {
   display: flex;
-  min-width: 400px;
+  width: 400px;
   flex-flow: column wrap;
 }
