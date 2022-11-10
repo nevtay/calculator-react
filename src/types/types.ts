@@ -1,6 +1,6 @@
 import React from "react";
 
-export type IsNumberOrNull = Number | null;
+export type IsNumberOrStringOrNull = Number | String | null;
 
 export type Props = {
     children?: React.ReactNode | React.ReactNode[];
@@ -10,10 +10,10 @@ export type Props = {
 };
 
 export type CalculatorContextObj = {
-    previousValue?: Number | null;
-    currentValue?: Number | null;
-    pendingValue?: Number | null;
-    handlePreviousValue: (value: IsNumberOrNull) => void;
-    handleCurrentValue: (value: IsNumberOrNull) => void;
-    handlePendingValue: (value: IsNumberOrNull) => void;
+    previousValue?: IsNumberOrStringOrNull;
+    currentValue?: IsNumberOrStringOrNull;
+    pendingValue?: IsNumberOrStringOrNull;
+    handlePreviousValue: (value: IsNumberOrStringOrNull) => void;
+    handleCurrentValue: (value: IsNumberOrStringOrNull) => void;
+    handlePendingValue: (value: IsNumberOrStringOrNull) => void;
 };
