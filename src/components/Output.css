@@ -1,15 +1,24 @@
 .output {
   background: #444;
-  height: 60px;
+  height: 100px;
   display: flex;
-  flex-flow: row-wrap;
-  justify-content: flex-end;
-  align-items: center;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.currentValue,
+.pendingValue {
+  color: #fff;
+  padding-right: 7.5px;
+}
+
+.pendingValue {
+  margin-bottom: auto;
+  padding-top: 10px;
+  font-size: 17px;
 }
 
 .currentValue {
-  color: #fff;
-  margin-top: 20px;
-  margin-right: 10px;
-  font-size: 30px;
+  font-size: 35px;
 }
