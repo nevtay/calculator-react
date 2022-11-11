@@ -5,15 +5,14 @@ import {
   CalculatorContextObj,
 } from "../types/types";
 
-export const CalculatorContext =
-  React.createContext<CalculatorContextObj | null>({
-    previousValue: 0,
-    currentValue: 0,
-    pendingValue: 0,
-    handlePreviousValue: (value: IsNumberOrStringOrNull) => {},
-    handleCurrentValue: (value: IsNumberOrStringOrNull) => {},
-    handlePendingValue: (value: IsNumberOrStringOrNull) => {},
-  });
+export const CalculatorContext = React.createContext<CalculatorContextObj>({
+  previousValue: 0,
+  currentValue: 0,
+  pendingValue: 0,
+  handlePreviousValue: (value: IsNumberOrStringOrNull) => {},
+  handleCurrentValue: (value: IsNumberOrStringOrNull) => {},
+  handlePendingValue: (value: IsNumberOrStringOrNull) => {},
+});
 
 export const CalculatorContextProvider: React.FC<Props> = (props) => {
   const MAX_NUMBER_OF_INPUTS = 20;
