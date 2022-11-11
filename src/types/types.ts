@@ -13,6 +13,7 @@ export type CalculatorContextObj = {
     previousValue?: IsNumberOrStringOrNull;
     currentValue?: IsNumberOrStringOrNull;
     pendingValue?: IsNumberOrStringOrNull;
+    operator?: string;
     handlePreviousValue: (value: IsNumberOrStringOrNull) => void;
     handleCurrentValue: (value: IsNumberOrStringOrNull) => void;
     handlePendingValue: (value: IsNumberOrStringOrNull) => void;
