@@ -49,6 +49,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
         return;
       }
       setOperator("");
+      setPendingValue("");
       return;
     }
     /**
