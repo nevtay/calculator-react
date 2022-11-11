@@ -7,9 +7,11 @@ const Output = (props: Props) => {
   const ctx = useContext(CalculatorContext);
   const currentVal = ctx?.currentValue;
   const pendingVal = ctx?.pendingValue;
+  const operator = ctx?.operator;
   return (
     <div className="output">
       <span className="pendingValue">{pendingVal?.toString() || "NA"}</span>
+      <span className="operator">{operator}</span>
       <span className="currentValue">{currentVal?.toString() || "0"}</span>
     </div>
   );
