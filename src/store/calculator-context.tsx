@@ -37,11 +37,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       return;
     }
     if (nextInput === "=") {
-      if (
-        operator === "X" &&
-        String(currentValue) !== "" &&
-        String(pendingValue) !== ""
-      ) {
+      if (operator === "X") {
         setCurrentValue(String(Number(pendingValue) * Number(currentValue)));
       } else if (operator === "÷") {
         setCurrentValue(String(Number(pendingValue) / Number(currentValue)));
