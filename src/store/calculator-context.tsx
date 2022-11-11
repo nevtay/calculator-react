@@ -17,7 +17,7 @@ export const CalculatorContext = React.createContext<CalculatorContextObj>({
 
 export const CalculatorContextProvider: React.FC<Props> = (props) => {
   const MAX_NUMBER_OF_INPUTS = 20;
-  const ARITHMETHIC_OPERATORS = ["+", "-", "X", "÷"];
+  const ARITHMETHIC_OPERATORS = ["+", "-", "X", "÷", "="];
   const [previousValue, setPreviousValue] =
     useState<IsNumberOrStringOrNull>("0");
   const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>("0");
@@ -34,6 +34,25 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       setOperator("");
       setCurrentValue("0");
       setPendingValue("");
+      return;
+    }
+    if (nextInput === "=") {
+      if (
+        operator === "X" &&
+        String(currentValue) !== "" &&
+        String(pendingValue) !== ""
+      ) {
+        setCurrentValue(String(Number(pendingValue) * Number(currentValue)));
+      } else if (operator === "÷") {
+        setCurrentValue(String(Number(pendingValue) / Number(currentValue)));
+      } else if (operator === "+") {
+        setCurrentValue(String(Number(pendingValue) + Number(currentValue)));
+      } else if (operator === "-") {
+        setCurrentValue(String(Number(pendingValue) - Number(currentValue)));
+      } else {
+        return;
+      }
+      setOperator("");
       return;
     }
     /**
@@ -58,8 +77,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
         setPendingValue(parseFloat(currentValue));
         setCurrentValue("0");
       } else if (typeof currentValue === "string" && currentValue) {
-        setCurrentValue(parseInt(currentValue));
-        setPendingValue(currentValue);
+        setPendingValue(parseInt(currentValue));
         setCurrentValue("0");
       }
       return;
