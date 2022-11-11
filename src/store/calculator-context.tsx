@@ -9,6 +9,7 @@ export const CalculatorContext = React.createContext<CalculatorContextObj>({
   previousValue: 0,
   currentValue: 0,
   pendingValue: 0,
+  operator: "",
   handlePreviousValue: (value: IsNumberOrStringOrNull) => {},
   handleCurrentValue: (value: IsNumberOrStringOrNull) => {},
   handlePendingValue: (value: IsNumberOrStringOrNull) => {},
@@ -21,6 +22,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     useState<IsNumberOrStringOrNull>("0");
   const [currentValue, setCurrentValue] = useState<IsNumberOrStringOrNull>("0");
   const [pendingValue, setPendingValue] = useState<IsNumberOrStringOrNull>("");
+  const [operator, setOperator] = useState<string>("");
 
   const handlePreviousValue = (value: IsNumberOrStringOrNull): void => {
     return setPreviousValue(value);
@@ -29,12 +31,15 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
   const handleCurrentValue = (nextInput: IsNumberOrStringOrNull): void => {
     // reset all values
     if (nextInput === "AC") {
+      setOperator("");
       setCurrentValue("0");
       setPendingValue("");
       return;
     }
-    // set max number of displayed values
-    // prevent decimal point from being the last value
+    /**
+     * set max number of displayed values
+     * prevent decimal point from being the last value
+     */
     if (
       currentValue &&
       (String(currentValue).length >= MAX_NUMBER_OF_INPUTS ||
@@ -48,6 +53,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       typeof nextInput === "string" &&
       ARITHMETHIC_OPERATORS.includes(nextInput)
     ) {
+      setOperator(nextInput);
       if (typeof currentValue === "string" && currentValue.includes(".")) {
         setPendingValue(parseFloat(currentValue));
         setCurrentValue("0");
@@ -58,12 +64,12 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       }
       return;
     }
+    // if initial value is 0 and incoming value is not 0, remove initial 0 from view
     if (
       currentValue === "0" &&
       typeof nextInput === "string" &&
       nextInput !== "."
     ) {
-      // if initial value is 0 and the next value is not 0, replace initial 0 with an empty string
       const nextValue = currentValue.concat(nextInput).replace("0", "");
       setCurrentValue(nextValue);
     } else {
@@ -80,6 +86,7 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     previousValue,
     currentValue,
     pendingValue,
+    operator,
     handlePreviousValue,
     handleCurrentValue,
     handlePendingValue,
