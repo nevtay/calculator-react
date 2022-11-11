@@ -5,12 +5,20 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
 }
 
 .currentValue,
 .pendingValue {
   color: #fff;
   padding-right: 7.5px;
+}
+
+.operator {
+  color: #fff;
+  position: absolute;
+  right: 15px;
+  font-size: 20px;
 }
 
 .pendingValue {
