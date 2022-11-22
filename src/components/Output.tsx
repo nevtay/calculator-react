@@ -6,13 +6,13 @@ import "./Output.css";
 const Output = (props: Props) => {
   const ctx = useContext(CalculatorContext);
   const currentVal = ctx?.currentValue;
-  const pendingVal = ctx?.pendingValue;
+  const previousVal = ctx?.previousValue;
   const operator = ctx?.operator;
   return (
     <div className="output">
-      <span className="pendingValue">{pendingVal?.toString() || ""}</span>
+      <span className="pendingValue">{previousVal?.toString() || ""}</span>
       <span className="operator">{operator}</span>
-      <span className="currentValue">{currentVal?.toString() || "0"}</span>
+      <span className="currentValue">{currentVal?.toString() || ""}</span>
     </div>
   );
 };
