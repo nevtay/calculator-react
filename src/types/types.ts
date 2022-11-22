@@ -12,9 +12,9 @@ export type Props = {
 export type CalculatorContextObj = {
     previousValue?: IsNumberOrStringOrNull;
     currentValue?: IsNumberOrStringOrNull;
-    pendingValue?: IsNumberOrStringOrNull;
+    hasCalculated?: boolean;
     operator?: string;
     handlePreviousValue: (value: IsNumberOrStringOrNull) => void;
     handleCurrentValue: (value: IsNumberOrStringOrNull) => void;
-    handlePendingValue: (value: IsNumberOrStringOrNull) => void;
+    handleHasCalculated: (value: boolean) => void;
 };
