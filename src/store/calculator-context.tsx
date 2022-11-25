@@ -41,6 +41,20 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       setHasCalculated(false);
       return;
     }
+    /**
+     * set max number of displayed values
+     * prevent decimal point from being the last value
+     */
+    if (
+      typeof nextInput === "string" &&
+      currentValue &&
+      ((String(currentValue).length >= MAX_NUMBER_OF_INPUTS - 1 &&
+        nextInput === ".") ||
+        String(currentValue).length >= MAX_NUMBER_OF_INPUTS) &&
+      !ARITHMETHIC_OPERATORS.includes(nextInput)
+    ) {
+      return;
+    }
     // set currentValue to next input if a calculation was previously done
     // if next input is a decimal point, set currentValue to "0."
     if (
@@ -76,8 +90,6 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
         setCurrentValue(String(Number(previousValue) + Number(currentValue)));
       } else if (operator === "-") {
         setCurrentValue(String(Number(previousValue) - Number(currentValue)));
-      } else {
-        return;
       }
       setHasCalculated(true);
       setPreviousValue("");
@@ -109,18 +121,6 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     } else {
       const nextValue = String(currentValue) + String(nextInput);
       setCurrentValue(nextValue);
-    }
-    /**
-     * set max number of displayed values
-     * prevent decimal point from being the last value
-     */
-    if (
-      currentValue &&
-      (String(currentValue).length >= MAX_NUMBER_OF_INPUTS ||
-        (String(currentValue).length >= MAX_NUMBER_OF_INPUTS - 1 &&
-          nextInput === "."))
-    ) {
-      return;
     }
     // handle arithmethic operator functionalities
     if (
