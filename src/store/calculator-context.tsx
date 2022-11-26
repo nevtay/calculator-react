@@ -32,6 +32,20 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     setHasCalculated(value);
   };
 
+  const calculate = (operator: string) => {
+    let result = null;
+    if (operator === "+") {
+      result = String(Number(currentValue) + Number(previousValue));
+    } else if (operator === "-") {
+      result = String(Number(previousValue) - Number(currentValue));
+    } else if (operator.toLocaleLowerCase() === "x") {
+      result = String(Number(currentValue) * Number(previousValue));
+    } else if (operator === "÷") {
+      result = String(Number(previousValue) / Number(currentValue));
+    }
+    return result;
+  };
+
   const handleCurrentValue = (nextInput: IsNumberOrStringOrNull): void => {
     // reset all values
     if (nextInput === "AC") {
@@ -51,25 +65,15 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
        * prevent equal symbol from being apprended to currentValue string
        */
       if (!operator) {
-        return;
+        return setCurrentValue(currentValue);
       }
       /**
        * handle operations when equal symbol is clicked
        * with an operator present
        */
-      let result = "";
-      if (operator === "+" && currentValue && previousValue) {
-        result = String(Number(currentValue) + Number(previousValue));
-      } else if (operator === "-" && currentValue && previousValue) {
-        result = String(Number(previousValue) - Number(currentValue));
-      } else if (
-        operator.toLocaleLowerCase() === "x" &&
-        currentValue &&
-        previousValue
-      ) {
-        result = String(Number(currentValue) * Number(previousValue));
-      } else if (operator === "÷" && currentValue && previousValue) {
-        result = String(Number(previousValue) / Number(currentValue));
+      let result = null;
+      if (currentValue && previousValue) {
+        result = calculate(operator);
       }
       setCurrentValue(result);
       setPreviousValue("");
@@ -136,15 +140,26 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     }
     /**
      * set currentValue to previousValue when operator is clicked
+     * if there's currentValue and previousValue, and an operator is clicked instead of equal
+     * calculate the value, set it to previousValue, and setCurrentValue to 0
      */
     if (
       nextInput &&
       typeof nextInput === "string" &&
       ARITHMETHIC_OPERATORS.includes(nextInput)
     ) {
-      setPreviousValue(currentValue);
-      setCurrentValue("0");
-      setOperator(nextInput);
+      if (!operator) {
+        setPreviousValue(currentValue);
+        setCurrentValue("0");
+        setOperator(nextInput);
+      } else if (operator) {
+        const result = calculate(operator);
+        setPreviousValue(result);
+        setCurrentValue(0);
+        setOperator(nextInput);
+        setHasCalculated(true);
+        return;
+      }
     }
   };
 
