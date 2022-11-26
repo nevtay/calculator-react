@@ -41,6 +41,57 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       setHasCalculated(false);
       return;
     }
+    // add negative symbol toggle
+    if (nextInput === "±" && currentValue) {
+      const result = Number(currentValue) * -1;
+      return setCurrentValue(String(result));
+    }
+    if (nextInput && nextInput === "=") {
+      /**
+       * prevent equal symbol from being apprended to currentValue string
+       */
+      if (!operator) {
+        return;
+      }
+      /**
+       * handle operations when equal symbol is clicked
+       * with an operator present
+       */
+      let result = "";
+      if (operator === "+" && currentValue && previousValue) {
+        result = String(Number(currentValue) + Number(previousValue));
+      } else if (operator === "-" && currentValue && previousValue) {
+        result = String(Number(previousValue) - Number(currentValue));
+      } else if (
+        operator.toLocaleLowerCase() === "x" &&
+        currentValue &&
+        previousValue
+      ) {
+        result = String(Number(currentValue) * Number(previousValue));
+      } else if (operator === "÷" && currentValue && previousValue) {
+        result = String(Number(previousValue) / Number(currentValue));
+      }
+      setCurrentValue(result);
+      setPreviousValue("");
+      setOperator("");
+      setHasCalculated(true);
+      return;
+    }
+    /**
+     * after a calculation is performed
+     * on entering the next numerical input or decimal point
+     * the 'setHasCalculated' variable is reset to false
+     * and currentValue is set to nextInput value
+     */
+    if (
+      hasCalculated &&
+      nextInput &&
+      typeof nextInput === "string" &&
+      !ARITHMETHIC_OPERATORS.includes(nextInput)
+    ) {
+      setHasCalculated(false);
+      setCurrentValue(nextInput);
+    }
     /**
      * set max number of displayed values
      * prevent decimal point from being the last value
@@ -55,87 +106,45 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     ) {
       return;
     }
-    // set currentValue to next input if a calculation was previously done
-    // if next input is a decimal point, set currentValue to "0."
+    /**
+     * append current values to display row
+     */
     if (
-      hasCalculated &&
-      currentValue &&
-      nextInput &&
-      typeof nextInput === "string"
+      !hasCalculated &&
+      typeof nextInput === "string" &&
+      !ARITHMETHIC_OPERATORS.includes(nextInput) &&
+      currentValue === "0"
     ) {
       if (nextInput === ".") {
-        setCurrentValue("0.");
-      } else if (ARITHMETHIC_OPERATORS.includes(nextInput)) {
-        setPreviousValue(currentValue);
-        setCurrentValue("0");
-        setOperator(nextInput);
-        return;
+        const nextValue = currentValue.concat(nextInput);
+        setCurrentValue(nextValue);
       } else {
-        setCurrentValue(nextInput);
+        const nextValue = currentValue.concat(nextInput).replace("0", "");
+        setCurrentValue(nextValue);
       }
-      setHasCalculated(false);
-      return;
+    } else if (
+      !hasCalculated &&
+      nextInput &&
+      typeof nextInput === "string" &&
+      typeof currentValue === "string" &&
+      currentValue &&
+      currentValue !== "0" &&
+      !ARITHMETHIC_OPERATORS.includes(nextInput)
+    ) {
+      const nextValue = currentValue.concat(nextInput);
+      setCurrentValue(nextValue);
     }
-    // do nothing if input is equal sign while no operator is displayed
-    if (nextInput === "=" && !operator) {
-      return;
-    }
-    // perform calculations and show output
-    if (nextInput === "=" && operator) {
-      if (operator.toLowerCase() === "x") {
-        setCurrentValue(String(Number(previousValue) * Number(currentValue)));
-      } else if (operator === "÷") {
-        setCurrentValue(String(Number(previousValue) / Number(currentValue)));
-      } else if (operator === "+") {
-        setCurrentValue(String(Number(previousValue) + Number(currentValue)));
-      } else if (operator === "-") {
-        setCurrentValue(String(Number(previousValue) - Number(currentValue)));
-      }
-      setHasCalculated(true);
-      setPreviousValue("");
-      setOperator("");
-      return;
-    }
-    // if arithmetic button is clicked, setPreviousValue to currentValue
-    // set current value to 0
+    /**
+     * set currentValue to previousValue when operator is clicked
+     */
     if (
+      nextInput &&
       typeof nextInput === "string" &&
       ARITHMETHIC_OPERATORS.includes(nextInput)
     ) {
-      // console.log(ARITHMETHIC_OPERATORS.includes(nextInput));
       setPreviousValue(currentValue);
-      setOperator(nextInput);
       setCurrentValue("0");
-      setHasCalculated(true);
-      return;
-    }
-    // if initial value is 0 and incoming value is a number, remove initial 0 from view
-    // else, append incoming value to current value
-    if (
-      currentValue === "0" &&
-      typeof nextInput === "string" &&
-      nextInput !== "."
-    ) {
-      const nextValue = currentValue.concat(nextInput).replace("0", "");
-      setCurrentValue(nextValue);
-    } else {
-      const nextValue = String(currentValue) + String(nextInput);
-      setCurrentValue(nextValue);
-    }
-    // handle arithmethic operator functionalities
-    if (
-      typeof nextInput === "string" &&
-      ARITHMETHIC_OPERATORS.includes(nextInput)
-    ) {
       setOperator(nextInput);
-      if (typeof currentValue === "string" && currentValue.includes(".")) {
-        // setPendingValue(parseFloat(currentValue));
-        setCurrentValue("0");
-      } else if (typeof currentValue === "string" && currentValue) {
-        // setPendingValue(parseInt(currentValue));
-        setCurrentValue("0");
-      }
-      return;
     }
   };
 
