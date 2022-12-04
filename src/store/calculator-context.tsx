@@ -83,15 +83,16 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
     }
     /**
      * after a calculation is performed
-     * on entering the next numerical input or decimal point
-     * the 'setHasCalculated' variable is reset to false
+     * if the next input is a number or decimal point
+     * the 'setHasCalculated' variable is set to false
      * and currentValue is set to nextInput value
      */
     if (
       hasCalculated &&
       nextInput &&
       typeof nextInput === "string" &&
-      !ARITHMETHIC_OPERATORS.includes(nextInput)
+      !ARITHMETHIC_OPERATORS.includes(nextInput) &&
+      nextInput !== "="
     ) {
       setHasCalculated(false);
       setCurrentValue(nextInput);
@@ -148,8 +149,19 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       typeof nextInput === "string" &&
       ARITHMETHIC_OPERATORS.includes(nextInput)
     ) {
-      if (!operator) {
+      /**
+       * prevent arithmethic operators from being entered if last value is a decimal point
+       * */
+      if (
+        currentValue &&
+        typeof currentValue === "string" &&
+        String(currentValue)[currentValue.length - 1] === "."
+      ) {
+        setPreviousValue(currentValue.slice(0, currentValue.length));
+      } else {
         setPreviousValue(currentValue);
+      }
+      if (!operator) {
         setCurrentValue("0");
         setOperator(nextInput);
       } else if (operator) {
@@ -162,10 +174,6 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       }
     }
   };
-
-  // const handlePendingValue = (value: IsNumberOrStringOrNull): void => {
-  //   return setPendingValue(value);
-  // };
 
   const contextValue: CalculatorContextObj = {
     previousValue,
