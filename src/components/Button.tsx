@@ -57,6 +57,19 @@ const Button = (props: Props) => {
       </span>
     );
   }
+  if (props.value === "%") {
+    return (
+      <span
+        id={`btn-modulo`}
+        onClick={() => {
+          return;
+        }}
+        className={`btn`}
+      >
+        {props.value}
+      </span>
+    );
+  }
   return (
     <span
       id={`btn-${props.value}`}
