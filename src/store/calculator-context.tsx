@@ -95,7 +95,12 @@ export const CalculatorContextProvider: React.FC<Props> = (props) => {
       nextInput !== "="
     ) {
       setHasCalculated(false);
-      setCurrentValue(nextInput);
+      if (nextInput === "." && String(currentValue) === "0") {
+        const tempValue = String(currentValue).concat(nextInput);
+        setCurrentValue(tempValue);
+      } else {
+        setCurrentValue(nextInput);
+      }
     }
     /**
      * set max number of displayed values
