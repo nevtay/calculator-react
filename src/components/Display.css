@@ -3,3 +3,9 @@
   width: 400px;
   flex-flow: column wrap;
 }
+
+@media screen and (max-width: 768px) {
+  #calculator {
+    padding: 7.5vw;
+  }
+}
